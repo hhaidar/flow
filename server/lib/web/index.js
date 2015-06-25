@@ -13,9 +13,11 @@ function Web(options) {
         port: options.port
     });
 
-    server.register({
-        register: require('hapi-io')
-    }, function (err) {
+    server.register([
+        {
+            register: require('hapi-io')
+        }
+    ], function (err) {
         if (err) {
             console.error('Failed to load plugin:', err);
         }
@@ -35,7 +37,7 @@ function Web(options) {
         path: '/assets/{param*}',
         handler: {
             directory: {
-                path: path.join(__dirname, '../../../client/public')
+                path: path.join(__dirname, '../../../client/build')
             }
         }
     });
