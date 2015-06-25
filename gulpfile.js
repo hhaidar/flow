@@ -2,7 +2,9 @@
 
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    browserify = require('gulp-browserify');
+    browserify = require('browserify'),
+    reactify = require('reactify'),
+    source = require('vinyl-source-stream');
 
 gulp.task('sass', function () {
     gulp.src('./client/sass/style.sass')
@@ -14,17 +16,23 @@ gulp.task('sass:watch', function () {
     gulp.watch('./client/sass/**/*.sass', ['sass']);
 });
 
+
 gulp.task('js', function() {
-    gulp.src('./client/js/app.js')
-        .pipe(browserify({
-            insertGlobals: true,
-            debug: true
-        }))
-        .pipe(gulp.dest('./client/build/js'))
+    var b = browserify({
+        insertGlobals: true,
+        debug: true
+    });
+    b.transform(reactify);
+    b.add('./client/js/app.js');
+    return b.bundle()
+        .pipe(source('app.js'))
+        .pipe(gulp.dest('./client/build/js'));
 });
 
 gulp.task('js:watch', function () {
     gulp.watch('./client/js/**/*.js', ['js']);
 });
+
+gulp.task('build', ['sass', 'js']);
 
 gulp.task('default', ['sass:watch', 'js:watch']);

@@ -33,3 +33,4 @@ node_modules
 settings.yml
 settings.js
 settings.json
+client/build

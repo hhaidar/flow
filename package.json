@@ -4,15 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server"
+    "start": "gulp build && node server"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "browserify": "^10.2.4",
     "gulp": "^3.9.0",
-    "gulp-browserify": "^0.5.1",
     "gulp-sass": "^2.0.2",
+    "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
@@ -23,6 +23,8 @@
     "hapi-io": "0.0.7",
     "js-yaml": "^3.3.1",
     "lodash": "^3.9.3",
-    "nunjucks-hapi": "^1.2.1"
+    "nunjucks-hapi": "^1.2.1",
+    "radium": "^0.13.1",
+    "react": "^0.13.3"
   }
 }
