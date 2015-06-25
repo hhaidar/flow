@@ -5,10 +5,13 @@ var nunjucks = require('nunjucks-hapi'),
 
 var Hapi = require('hapi');
 
+var settings = require('./config');
+
 var server = new Hapi.Server();
 
 server.connection({
-    port: 3000
+    host: settings.host,
+    port: settings.port
 });
 
 server.register({
@@ -24,7 +27,7 @@ server.views({
         html: nunjucks
     },
     relativeTo: __dirname,
-    path: './views',
+    path: '../client/views',
     isCached: false
 });
 

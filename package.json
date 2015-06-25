@@ -14,8 +14,10 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "fs": "0.0.2",
     "hapi": "^8.6.1",
     "hapi-io": "0.0.7",
+    "lodash": "^3.9.3",
     "nunjucks-hapi": "^1.2.1"
   }
 }
