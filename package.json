@@ -1,0 +1,21 @@
+{
+  "name": "flow",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^10.2.4",
+    "gulp": "^3.9.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "hapi": "^8.6.1",
+    "hapi-io": "0.0.7",
+    "nunjucks-hapi": "^1.2.1"
+  }
+}
