@@ -14,6 +14,8 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "agenda": "^0.6.28",
+    "colors": "^1.1.2",
     "fs": "0.0.2",
     "hapi": "^8.6.1",
     "hapi-io": "0.0.7",
