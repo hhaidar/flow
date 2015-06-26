@@ -6,9 +6,11 @@ function Provider(options) {
 
 }
 
-Provider.prototype.fetch = function() {
+Provider.prototype.fetch = function(done, job) {
 
     console.log('got');
+
+    done();
 
 }
 

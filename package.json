@@ -19,12 +19,14 @@
     "agenda": "^0.6.28",
     "colors": "^1.1.2",
     "fs": "0.0.2",
+    "glob": "^5.0.10",
     "hapi": "^8.6.1",
     "hapi-io": "0.0.7",
     "js-yaml": "^3.3.1",
     "lodash": "^3.9.3",
     "nunjucks-hapi": "^1.2.1",
     "radium": "^0.13.1",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "require-tree": "^1.0.1"
   }
 }

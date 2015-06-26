@@ -14,7 +14,7 @@ var web = new Web(settings),
     services = new Services(settings);
 
 web.start(function() {
-    var art = fs.readFileSync(path.join(__dirname, './misc/art.txt'), 'utf8').red;
-    console.log('\n' + art, '\n', 'Release ' + psjon.version.red + '\n');
+    var art = fs.readFileSync(path.join(__dirname, './misc/art.txt'), 'utf8').cyan;
+    console.log(art + '\nRelease ' + psjon.version.yellow+ '\n');
     services.start();
 });
