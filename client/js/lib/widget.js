@@ -1,11 +1,22 @@
 'use strict';
 
-var React = require('react');
+var React = require('react'),
+    Radium = require('radium');
+
+var styles = {
+    base: {
+        background: 'orange'
+    }
+}
 
 var Widget = React.createClass({
     render() {
-        return <div>WIDGET</div>;
+        return (
+            <div style={[styles.base]}>
+                wat.
+            </div>
+        );
     }
 });
 
-module.exports = Widget;
+module.exports = Radium(Widget);
