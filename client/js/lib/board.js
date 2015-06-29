@@ -3,8 +3,11 @@
 var React = require('react'),
     Radium = require('radium');
 
+var Jira = require('./widgets/Jira');
+
 var styles = {
     base: {
+        background: 'orange',
         width: '1920px',
         height: '1080px',
         marginTop: -1080 / 2,
@@ -37,9 +40,17 @@ var Board = React.createClass({
     },
     render() {
         return (
-            <div className="fx-board" style={[styles.base, {
-                transform: 'scale(' + Math.min(this.state.windowWidth / 1920, this.state.windowHeight / 1080) + ')'
-            }]}>
+            <div className="fx-board"
+                style={
+                    [
+                        styles.base,
+                        {
+                            transform: 'scale(' + Math.min(this.state.windowWidth / 1920, this.state.windowHeight / 1080) + ')'
+                        }
+                    ]
+                }
+            >
+                <Jira />
             </div>
         );
     }

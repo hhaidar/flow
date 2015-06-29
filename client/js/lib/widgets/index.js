@@ -9,11 +9,11 @@ var styles = {
     },
     text: {
         big: {
-            'font-size': '100px'
+            fontSize: '100px'
         },
         subtitle: {
-            'font-size': '20px',
-            'text-transform': 'uppercase'
+            fontSize: '20px',
+            textTransform: 'uppercase'
         }
     }
 }
@@ -22,12 +22,7 @@ var Widget = React.createClass({
     render() {
         return (
             <div className="fx-widget" style={[styles.base]}>
-                <div style={[styles.text.big]}>
-                    45%
-                </div>
-                <div style={[styles.text.subtitle]}>
-                    Servers Up
-                </div>
+                { this.props.children }
             </div>
         );
     }

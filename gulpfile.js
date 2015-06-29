@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
+    gutil = require('gulp-util'),
     sass = require('gulp-sass'),
     browserify = require('browserify'),
     reactify = require('reactify'),
@@ -16,7 +17,6 @@ gulp.task('sass:watch', function () {
     gulp.watch('./client/sass/**/*.scss', ['sass']);
 });
 
-
 gulp.task('js', function() {
     var b = browserify({
         insertGlobals: true,
@@ -25,6 +25,10 @@ gulp.task('js', function() {
     b.transform(reactify);
     b.add('./client/js/app.js');
     return b.bundle()
+        .on('error', function(err) {
+            gutil.log(gutil.colors.red(err.toString()));
+            this.emit('end');
+        })
         .pipe(source('app.js'))
         .pipe(gulp.dest('./client/build/js'));
 });
@@ -38,3 +42,7 @@ gulp.task('build', ['sass', 'js']);
 gulp.task('watch', ['sass:watch', 'js:watch']);
 
 gulp.task('default', ['build']);
+
+gulp.on('err', function(err){
+  console.log(err);
+});
