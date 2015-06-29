@@ -13,14 +13,14 @@
     "gulp": "^3.9.0",
     "gulp-sass": "^2.0.2",
     "reactify": "^1.1.1",
+    "glob": "^5.0.10",
+    "gulp-util": "^3.0.6",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
     "agenda": "^0.6.28",
     "colors": "^1.1.2",
     "eventemitter2": "^0.4.14",
-    "fs": "0.0.2",
-    "glob": "^5.0.10",
     "hapi": "^8.6.1",
     "hapi-io": "0.0.7",
     "jira": "^0.9.2",
