@@ -6,21 +6,24 @@ var _ = require('lodash'),
     glob = require('glob'),
     path = require('path'),
     yaml = require('js-yaml'),
-    all = require('require-tree');
+    all = require('require-tree'),
+    events = require('eventemitter2');
 
 function Services(options) {
 
     this.options = options;
+
+    this.events = new events.EventEmitter2;
+
+    this.tasks = [];
+
+    this.store = {};
 
     this.availableServices = _.mapValues(all(path.join(__dirname, './built-in'), {
         index: 'preserve'
     }), function(val, key) {
         return val.index;
     });
-
-    this.tasks = [];
-
-    this.store = {};
 
     this.agenda = new Agenda({
         db: {
@@ -30,9 +33,27 @@ function Services(options) {
 
 }
 
+Services.prototype.emit = function(event, data) {
+
+    return this.events.emit(event, data);
+
+}
+
+Services.prototype.on = function(event, fn) {
+
+    return this.events.on(event, fn);
+
+}
+
+
 Services.prototype.save = function(id, data) {
 
     this.store[id] = data;
+
+    this.emit('task:data', {
+        id: id,
+        data: data
+    });
 
 }
 

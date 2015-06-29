@@ -18,6 +18,7 @@
   "dependencies": {
     "agenda": "^0.6.28",
     "colors": "^1.1.2",
+    "eventemitter2": "^0.4.14",
     "fs": "0.0.2",
     "glob": "^5.0.10",
     "hapi": "^8.6.1",

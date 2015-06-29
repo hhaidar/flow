@@ -18,3 +18,7 @@ web.start(function() {
     console.log(art + '\nRelease ' + psjon.version.yellow+ '\n');
     services.start();
 });
+
+services.on('task:data', function(task) {
+    console.log('got');
+});

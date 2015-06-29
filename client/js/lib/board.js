@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react'),
-    Radium = require('radium');
+    Radium = require('radium'),
 
 var Grid = require('./grid');
 
