@@ -2,6 +2,6 @@
 
 var React = require('react');
 
-var Widget = require('./lib/widget.js');
+var Board = require('./lib/board.js');
 
-React.render(<Widget />, document.querySelector('.fx-board'));
+React.render(<Board />, document.querySelector('.fx-app'));

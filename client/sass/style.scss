@@ -1,26 +1,31 @@
 /*
  * wat.
  */
-
-body
+ 
+@import 'vendor/_meyer-reset.scss';
+ 
+body {
     background: #F31A51;
     color: #fff;
-    font-family: sans-serif
+    font-family: sans-serif;
     padding: 0;
     margin: 0;
+}
 
-.fx-loading
+.fx-loading {
     width: 10%;
     height: 10%;
     display: block;
     margin: 0 auto;
     margin-top: 10%;
+}
 
-.fx-board
-    display: flex
-    padding: 10px;
-
-.fx-widget
+.fx-widget {
     text-align: center;
     padding: 20px;
     border: 1px rgba(255, 255, 255, .2) solid;
+}
+
+.fx-board {
+    border: 1px white solid;
+}

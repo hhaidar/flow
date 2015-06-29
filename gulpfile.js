@@ -7,13 +7,13 @@ var gulp = require('gulp'),
     source = require('vinyl-source-stream');
 
 gulp.task('sass', function () {
-    gulp.src('./client/sass/style.sass')
+    gulp.src('./client/sass/style.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./client/build/css'));
 });
 
 gulp.task('sass:watch', function () {
-    gulp.watch('./client/sass/**/*.sass', ['sass']);
+    gulp.watch('./client/sass/**/*.scss', ['sass']);
 });
 
 
