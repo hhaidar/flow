@@ -10,10 +10,10 @@ var styles = {
         height: 1081,
         overflow: 'visible'
     }
-}
+};
 
 var Grid = React.createClass({
-    render() {
+    render: function() {
         return (
             <svg xmlns="http://www.w3.org/2000/svg" style={[styles.base]}>
                 <defs>

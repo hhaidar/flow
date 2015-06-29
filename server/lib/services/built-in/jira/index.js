@@ -26,12 +26,17 @@ Provider.prototype.fetch = function(done) {
         + 'AND Sprint = 27 ';
 
     this.client.searchJira(query, {}, function(err, results) {
+        if (err) {
+            console.error(err);
+            done(err);
+            return;
+        }
         var tickets = _.map(results.issues, function(issue) {
-            return issue.fields
+            return issue.fields;
         });
         done(null, tickets);
     });
 
-}
+};
 
 module.exports = Provider;

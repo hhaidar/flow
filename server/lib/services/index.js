@@ -13,7 +13,7 @@ function Services(options) {
 
     this.options = options;
 
-    this.events = new events.EventEmitter2;
+    this.events = new events.EventEmitter2();
 
     this.tasks = [];
 
@@ -21,7 +21,7 @@ function Services(options) {
 
     this.availableServices = _.mapValues(all(path.join(__dirname, './built-in'), {
         index: 'preserve'
-    }), function(val, key) {
+    }), function(val) {
         return val.index;
     });
 
@@ -37,14 +37,13 @@ Services.prototype.emit = function(event, data) {
 
     return this.events.emit(event, data);
 
-}
+};
 
 Services.prototype.on = function(event, fn) {
 
     return this.events.on(event, fn);
 
-}
-
+};
 
 Services.prototype.save = function(id, data) {
 
@@ -55,7 +54,7 @@ Services.prototype.save = function(id, data) {
         data: data
     });
 
-}
+};
 
 Services.prototype.load = function() {
 
@@ -78,14 +77,18 @@ Services.prototype.load = function() {
 
             that.agenda.define(context.id, function(job, done) {
                 service.fetch(function(err, data) {
-                    that.save(context.id, data);
                     done();
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    that.save(context.id, data);
                 });
             });
 
             that.agenda.every(context.interval, context.id);
 
-            that.agenda.on('fail:' + context.id, function(err, job) {
+            that.agenda.on('fail:' + context.id, function(err) {
                 console.log('[%s] Job failed with error: %s', context.id, err.message);
             });
 
@@ -94,9 +97,9 @@ Services.prototype.load = function() {
         });
     });
 
-}
+};
 
-Services.prototype.start = function() {
+Services.prototype.start = function(cb) {
 
     this.load();
 
@@ -104,6 +107,6 @@ Services.prototype.start = function() {
 
     typeof cb === 'function' && cb();
 
-}
+};
 
 module.exports = Services;

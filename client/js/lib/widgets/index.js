@@ -18,10 +18,10 @@ var styles = {
             textTransform: 'uppercase'
         }
     }
-}
+};
 
 var Widget = React.createClass({
-    render() {
+    render: function() {
         return (
             <div className="fx-widget" style={
                     [

@@ -15,10 +15,10 @@ var web = new Web(settings),
 
 web.start(function() {
     var art = fs.readFileSync(path.join(__dirname, './misc/art.txt'), 'utf8').magenta;
-    console.log(art + '\nRelease ' + psjon.version.yellow+ '\n');
+    console.log(art + '\nRelease ' + colors.yellow(psjon.version) + '\n');
     services.start();
 });
 
-services.on('task:data', function(task) {
+services.on('task:data', function() {
     console.log('got');
 });

@@ -10,10 +10,10 @@ var styles = {
         width: '100%',
         height: '100%'
     }
-}
+};
 
 var Jira = React.createClass({
-    render() {
+    render: function() {
         return (
             <Widget {...this.props}>
                 <div style={[styles.base]}>

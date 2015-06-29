@@ -5,27 +5,6 @@ var _ = require('lodash'),
     yaml = require('js-yaml'),
     path = require('path');
 
-function parseEnvValue(value, isArray) {
-    value = value.trim();
-    if (isArray) {
-        return _.map(value.split(','), function(value) {
-            return parseEnvValue(value);
-        });
-    }
-    // YAML compatible boolean values
-    else if (/^(y|yes|true|on)$/i.test(value)) {
-        return true;
-    }
-    else if (/^(n|no|false|off)$/i.test(value)) {
-        return false;
-    }
-    else if (/^[+-]?\d+.?\d*$/.test(value) &&
-             !isNaN(parseInt(value, 10))) {
-        return parseInt(value, 10);
-    }
-    return value;
-}
-
 var pipeline = [
 
     function getDefaultSettings(context) {

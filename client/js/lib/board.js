@@ -19,7 +19,7 @@ var styles = {
         left: '50%',
         boxSizing: 'border-box'
     }
-}
+};
 
 var Board = React.createClass({
     getInitialState: function() {
@@ -28,7 +28,7 @@ var Board = React.createClass({
             windowHeight: window.innerHeight
         };
     },
-    handleResize: function(e) {
+    handleResize: function() {
         this.setState({
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight
@@ -40,7 +40,7 @@ var Board = React.createClass({
     componentWillUnmount: function() {
         window.removeEventListener('resize', this.handleResize);
     },
-    render() {
+    render: function() {
         return (
             <div className="fx-board"
                 style={

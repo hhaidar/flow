@@ -58,6 +58,6 @@ Web.prototype.start = function(cb) {
         typeof cb === 'function' && cb();
     });
 
-}
+};
 
 module.exports = Web;
