@@ -6,15 +6,19 @@ var React = require('react'),
 
 var styles = {
     base: {
-        background: 'orange'
+        background: 'rgba(200, 0, 255, .4)',
+        width: '100%',
+        height: '100%'
     }
 }
 
 var Jira = React.createClass({
     render() {
         return (
-            <Widget>
-                JIRA
+            <Widget {...this.props}>
+                <div style={[styles.base]}>
+                    JIRA!
+                </div>
             </Widget>
         );
     }

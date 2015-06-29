@@ -3,11 +3,13 @@
 var React = require('react'),
     Radium = require('radium');
 
-var Jira = require('./widgets/Jira');
+var Grid = require('./grid');
+
+var Jira = require('./widgets/jira');
 
 var styles = {
     base: {
-        background: 'orange',
+        background: 'rgba(0, 0, 0, .1)',
         width: '1920px',
         height: '1080px',
         marginTop: -1080 / 2,
@@ -50,7 +52,11 @@ var Board = React.createClass({
                     ]
                 }
             >
-                <Jira />
+                <Grid />
+                <Jira width="3" height="2" x="0" y="0" />
+                <Jira width="1" height="1" x="2" y="2" />
+                <Jira width="1" height="1" x="1" y="3" />
+                <Jira width="1" height="2" x="4" y="1" />
             </div>
         );
     }

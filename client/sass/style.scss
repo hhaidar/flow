@@ -10,6 +10,7 @@ body {
     font-family: sans-serif;
     padding: 0;
     margin: 0;
+    overflow: hidden;
 }
 
 .fx-loading {
@@ -18,9 +19,4 @@ body {
     display: block;
     margin: 0 auto;
     margin-top: 10%;
-}
-
-.fx-widget {
-    text-align: center;
-    padding: 20px;
 }
