@@ -1,7 +1,8 @@
 'use strict';
 
 var React = require('react'),
-    Radium = require('radium');
+    Radium = require('radium'),
+    io = require('socket.io-client');
 
 var Grid = require('./grid');
 
@@ -32,6 +33,12 @@ var Board = React.createClass({
         this.setState({
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight
+        });
+    },
+    componentWillMount: function() {
+        this.socket = io.connect();
+        this.socket.on('connect', function() {
+            console.log('connected');
         });
     },
     componentDidMount: function() {
