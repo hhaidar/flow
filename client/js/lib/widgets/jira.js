@@ -1,6 +1,7 @@
 'use strict';
 
-var React = require('react'),
+var _ = require('lodash'),
+    React = require('react'),
     Radium = require('radium'),
     Widget = require('.');
 
@@ -11,13 +12,11 @@ var styles = {
         height: '100%'
     },
     progress: {
-        height: '100px',
-        padding: '20px 0'
+        height: '100px'
     },
     bar: {
         background: 'orange',
         height: 'inherit',
-        width: '20%',
         float: 'left'
     },
     count: {
@@ -28,22 +27,21 @@ var styles = {
         marginTop: '10px'
     },
     point: {
-        background: '#fff',
+        background: '#fff padding-box',
         width: '16px',
         height: '16px',
         position: 'absolute',
         top: '-65px',
         left: '50%',
         marginLeft: '-8px',
-        borderRadius: '100%',
-        backgroundClip: 'padding-box'
+        borderRadius: '100%'
     },
     line: {
         background: '#fff',
         height: '60px',
         width: '2px',
         position: 'absolute',
-        top: '-60px',
+        top: '-65px',
         left: '50%',
         marginLeft: '-1px'
     }
@@ -52,52 +50,58 @@ var styles = {
 var data = [
     {
         label: 'TODO',
-        color: 'blue',
+        color: '#2b5797',
         count: 8
     },
     {
         label: 'PROG',
-        color: 'red',
+        color: '#b91d47',
         count: 14
     },
     {
-        label: 'REV',
-        color: 'orange',
+        label: 'REVIEW',
+        color: '#e3a21a',
         count: 12
     },
     {
-        label: 'REV',
-        color: 'orange',
+        label: 'QA',
+        color: '#7e3878',
+        count: 12
+    },
+    {
+        label: 'ACC',
+        color: '#1e7145',
         count: 12
     }
 ]
+
+var total = +function() {
+    var sum = 0;
+    _.each(data, function(state) {
+        sum += state.count
+    });
+    return sum;
+}();
 
 var Jira = React.createClass({
     render: function() {
         return (
             <Widget {...this.props}>
                 <div style={[styles.progress]}>
-                    <div style={[styles.bar]}>
-                        <div style={[styles.count]}>
-                            11 TODO
-                            <span style={[styles.point]}></span>
-                            <span style={[styles.line]}></span>
-                        </div>
-                    </div>
-                    <div style={[styles.bar]}>
-                        <div style={[styles.count]}>
-                            11 TODO
-                            <span style={[styles.point]}></span>
-                            <span style={[styles.line]}></span>
-                        </div>
-                    </div>
-                    <div style={[styles.bar]}>
-                        <div style={[styles.count]}>
-                            11 TODO
-                            <span style={[styles.point]}></span>
-                            <span style={[styles.line]}></span>
-                        </div>
-                    </div>
+                    {data.map(function(state) {
+                        return (
+                            <div style={[styles.bar, {
+                                background: state.color,
+                                width: (state.count / total * 100) + '%'
+                            }]}>
+                                <div style={[styles.count]}>
+                                    {state.count} {state.label}
+                                    <span style={[styles.point]}></span>
+                                    <span style={[styles.line]}></span>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
             </Widget>
         );

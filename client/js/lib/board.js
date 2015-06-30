@@ -10,7 +10,7 @@ var Jira = require('./widgets/jira');
 
 var styles = {
     base: {
-        background: 'rgba(0, 0, 0, .1)',
+        background: 'rgba(0, 0, 0, .2)',
         width: '1920px',
         height: '1080px',
         marginTop: -1080 / 2,

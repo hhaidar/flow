@@ -5,7 +5,8 @@ var React = require('react'),
 
 var styles = {
     base: {
-        background: 'purple',
+        background: 'rgba(0, 0, 0, .4)',
+        padding: '20px',
         position: 'absolute',
         boxSizing: 'border-box'
     },
