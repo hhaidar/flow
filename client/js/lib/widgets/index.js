@@ -6,17 +6,19 @@ var React = require('react'),
 var styles = {
     base: {
         background: 'rgba(0, 0, 0, .4)',
-        padding: '20px',
+        padding: '40px',
         position: 'absolute',
         boxSizing: 'border-box'
     },
     text: {
         title: {
+            textAlign: 'center',
             fontSize: '80px',
             fontWeight: '600',
             fontFamily: 'Oswald',
             letterSpacing: '5px',
-            textTransform: 'uppercase'
+            textTransform: 'uppercase',
+            marginBottom: '40px'
         },
         subtitle: {
             fontSize: '20px',
