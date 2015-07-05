@@ -12,10 +12,11 @@ var styles = {
     },
     text: {
         title: {
-            fontSize: '70px',
+            fontSize: '80px',
             fontWeight: '600',
             fontFamily: 'Oswald',
-            letterSpacing: '5px'
+            letterSpacing: '5px',
+            textTransform: 'uppercase'
         },
         subtitle: {
             fontSize: '20px',
