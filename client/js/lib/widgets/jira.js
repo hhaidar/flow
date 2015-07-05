@@ -49,26 +49,31 @@ var styles = {
 
 var data = [
     {
+        id: 'todo',
         label: 'TODO',
         color: '#2b5797',
         count: 8
     },
     {
+        id: 'progress',
         label: 'PROG',
         color: '#b91d47',
         count: 14
     },
     {
+        id: 'review',
         label: 'REVIEW',
         color: '#e3a21a',
         count: 12
     },
     {
+        id: 'qa',
         label: 'QA',
         color: '#7e3878',
         count: 12
     },
     {
+        id: 'accepted',
         label: 'ACC',
         color: '#1e7145',
         count: 12
@@ -90,7 +95,7 @@ var Jira = React.createClass({
                 <div style={[styles.progress]}>
                     {data.map(function(state) {
                         return (
-                            <div style={[styles.bar, {
+                            <div key={state.id} style={[styles.bar, {
                                 background: state.color,
                                 width: (state.count / total * 100) + '%'
                             }]}>
