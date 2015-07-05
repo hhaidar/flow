@@ -60,7 +60,7 @@ var Board = React.createClass({
                 }
             >
                 <Grid />
-                <Jira width="6" height="2" x="0" y="2" />
+                <Jira title="Jira" width="6" height="2" x="0" y="2" />
             </div>
         );
     }

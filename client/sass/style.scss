@@ -3,11 +3,21 @@
  */
  
 @import 'vendor/_meyer-reset.scss';
- 
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url(../font/SourceSansPro-Regular.otf);
+}
+
+@font-face {
+    font-family: Oswald;
+    src: url(../font/Oswald-Regular.ttf);
+}
+
 body {
     background: #F31A51;
     color: #fff;
-    font-family: sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     padding: 0;
     margin: 0;
     overflow: hidden;

@@ -37,7 +37,13 @@ gulp.task('js:watch', function () {
     gulp.watch('./client/js/**/*.js', ['js']);
 });
 
-gulp.task('build', ['sass', 'js']);
+gulp.task('font', function() {
+    gulp.src('./client/font/*')
+        .pipe(gulp.dest('./client/build/font'));
+});
+
+
+gulp.task('build', ['sass', 'js', 'font']);
 
 gulp.task('watch', ['sass:watch', 'js:watch']);
 

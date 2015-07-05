@@ -11,8 +11,11 @@ var styles = {
         boxSizing: 'border-box'
     },
     text: {
-        big: {
-            fontSize: '100px'
+        title: {
+            fontSize: '70px',
+            fontWeight: '600',
+            fontFamily: 'Oswald',
+            letterSpacing: '5px'
         },
         subtitle: {
             fontSize: '20px',
@@ -35,6 +38,10 @@ var Widget = React.createClass({
                         }
                     ]
                 }>
+                {
+                    this.props.title &&
+                    <h2 style={[styles.text.title, { marginBottom: '20px' }]}>{ this.props.title }</h2>
+                }
                 { this.props.children }
             </div>
         );
