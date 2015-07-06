@@ -75,7 +75,7 @@ var data = [
     {
         id: 'accepted',
         label: 'ACC',
-        color: '#1e7145',
+        color: '#9EBF6D',
         count: 12
     }
 ]

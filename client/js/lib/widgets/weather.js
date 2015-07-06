@@ -30,7 +30,7 @@ var styles = {
     }
 }
 
-var Clock = React.createClass({
+var Weather = React.createClass({
     getInitialState: function() {
         return {
             location: 'Toronto, ON',
@@ -62,4 +62,4 @@ var Clock = React.createClass({
     }
 });
 
-module.exports = Radium(Clock);
+module.exports = Radium(Weather);

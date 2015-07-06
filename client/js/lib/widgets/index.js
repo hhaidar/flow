@@ -13,11 +13,12 @@ var styles = {
     text: {
         title: {
             textAlign: 'center',
-            fontSize: '80px',
+            fontSize: '70px',
             fontWeight: '600',
             fontFamily: 'Oswald',
             letterSpacing: '5px',
-            textTransform: 'uppercase'
+            textTransform: 'uppercase',
+            marginBottom: '40px'
         }
     }
 };
@@ -38,7 +39,7 @@ var Widget = React.createClass({
                 }>
                 {
                     this.props.title &&
-                    <h2 style={[styles.text.title, { marginBottom: '30px' }]}>{ this.props.title }</h2>
+                    <h2 style={[styles.text.title]}>{ this.props.title }</h2>
                 }
                 { this.props.children }
             </div>
