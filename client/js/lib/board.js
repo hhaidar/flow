@@ -7,6 +7,7 @@ var React = require('react'),
 var Grid = require('./grid');
 
 var Clock = require('./widgets/clock'),
+    Weather = require('./widgets/weather'),
     Jira = require('./widgets/jira');
 
 var styles = {
@@ -62,6 +63,7 @@ var Board = React.createClass({
             >
                 <Grid />
                 <Clock width="2" height="1" x="4" y="0" />
+                <Weather width="2" height="1" x="4" y="1" />
                 <Jira title="Jira" width="6" height="2" x="0" y="2" />
             </div>
         );

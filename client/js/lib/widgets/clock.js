@@ -19,7 +19,8 @@ var styles = {
         display: 'block',
         fontFamily: 'Oswald',
         fontWeight: '600',
-        fontSize: '110px'
+        fontSize: '110px',
+        letterSpacing: '5px'
     },
     date: {
         display: 'block',
