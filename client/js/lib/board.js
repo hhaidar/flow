@@ -63,11 +63,12 @@ var Board = React.createClass({
                 }
             >
                 <Grid />
-                <Status title="Production" width="2" height="2" x="0" y="0" value="15" total="22" />
-                <Status title="Internal" width="2" height="2" x="2" y="0" value="7" total="7" />
                 <Clock width="2" height="1" x="4" y="0" />
                 <Weather width="2" height="1" x="4" y="1" />
-                <Jira title="Jira" width="6" height="2" x="0" y="2" />
+                <Jira title="Jira" subtitle="Version 3.3 &mdash; Sprint 14" width="4" height="2" x="0" y="0" />
+                <Status title="Production" width="2" height="2" x="0" y="2" value="15" total="22" />
+                <Status title="Internal" width="2" height="2" x="2" y="2" value="7" total="7" />
+                <Status title="Jenkins" width="2" height="2" x="4" y="2" value="41" total="41" />
             </div>
         );
     }

@@ -80,7 +80,8 @@ var Status = React.createClass({
                 <div style={[styles.base]}>
                     <div style={[styles.visual]}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox={'0 0 ' + options.radius * 2 + ' ' + options.radius * 2} width="60%">
-                            <circle fill="none"
+                            <circle
+                                fill="rgba(0, 0, 0, .2"
                                 style={[
                                     styles.background
                                 ]} 

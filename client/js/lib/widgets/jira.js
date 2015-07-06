@@ -12,36 +12,47 @@ var styles = {
         height: '100%'
     },
     progress: {
-        height: '100px'
+        height: '130px'
     },
     bar: {
         background: 'orange',
         height: 'inherit',
         float: 'left'
     },
-    count: {
+    meta: {
         textAlign: 'center',
         fontSize: '35px',
         position: 'relative',
         bottom: '-100%',
-        marginTop: '10px'
+        marginTop: '10px',
+        paddingTop: '10px'
+    },
+    count: {
+        fontWeight: '600',
+        fontSize: '50px',
+        fontFamily: 'Oswald',
+        letterSpacing: '5px'
+    },
+    label: {
+        display: 'block',
+        marginTop: '5px'
     },
     point: {
         background: '#fff padding-box',
         width: '16px',
         height: '16px',
         position: 'absolute',
-        top: '-65px',
+        top: '-80px',
         left: '50%',
         marginLeft: '-8px',
         borderRadius: '100%'
     },
     line: {
         background: '#fff',
-        height: '60px',
+        height: '80px',
         width: '2px',
         position: 'absolute',
-        top: '-65px',
+        top: '-80px',
         left: '50%',
         marginLeft: '-1px'
     }
@@ -50,19 +61,19 @@ var styles = {
 var data = [
     {
         id: 'todo',
-        label: 'TODO',
+        label: 'TO-DO',
         color: '#2b5797',
         count: 8
     },
     {
         id: 'progress',
-        label: 'PROG',
+        label: 'In Progress',
         color: '#b91d47',
         count: 14
     },
     {
         id: 'review',
-        label: 'REVIEW',
+        label: 'Review',
         color: '#e3a21a',
         count: 12
     },
@@ -70,13 +81,13 @@ var data = [
         id: 'qa',
         label: 'QA',
         color: '#7e3878',
-        count: 12
+        count: 4
     },
     {
         id: 'accepted',
-        label: 'ACC',
+        label: 'Accepted',
         color: '#9EBF6D',
-        count: 12
+        count: 21
     }
 ]
 
@@ -99,8 +110,9 @@ var Jira = React.createClass({
                                 background: state.color,
                                 width: (state.count / total * 100) + '%'
                             }]}>
-                                <div style={[styles.count]}>
-                                    {state.count} {state.label}
+                                <div style={[styles.meta]}>
+                                    <span style={[styles.count]}>{state.count}</span>
+                                    <span style={[styles.label]}>{state.label}</span>
                                     <span style={[styles.point]}></span>
                                     <span style={[styles.line]}></span>
                                 </div>
