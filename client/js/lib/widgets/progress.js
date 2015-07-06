@@ -99,7 +99,7 @@ var total = +function() {
     return sum;
 }();
 
-var Jira = React.createClass({
+var Progress = React.createClass({
     render: function() {
         return (
             <Widget {...this.props}>
@@ -125,4 +125,4 @@ var Jira = React.createClass({
     }
 });
 
-module.exports = Radium(Jira);
+module.exports = Radium(Progress);
