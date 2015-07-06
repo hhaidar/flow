@@ -27,8 +27,9 @@ function Services(options) {
 
     this.agenda = new Agenda({
         db: {
-            address: 'localhost:27017/agenda-flow'
-        }
+            address: 'localhost:27017/flow-agenda'
+        },
+        defaultLockLifetime: 5000
     });
 
 }

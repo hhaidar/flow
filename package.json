@@ -21,6 +21,7 @@
     "agenda": "^0.6.28",
     "colors": "^1.1.2",
     "eventemitter2": "^0.4.14",
+    "forecast": "^0.2.1",
     "hapi": "^8.6.1",
     "hapi-io": "0.0.7",
     "jira": "^0.9.2",
