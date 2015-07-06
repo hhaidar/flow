@@ -2,3 +2,5 @@
 
 [![Dependency Status](https://david-dm.org/hhaidar/flow.svg)](https://david-dm.org/hhaidar/flow)
 [![devDependency Status](https://david-dm.org/hhaidar/flow/dev-status.svg)](https://david-dm.org/hhaidar/flow#info=devDependencies)
+
+<img src="screenshot.png" alt="&gt; flow screenshot" />
