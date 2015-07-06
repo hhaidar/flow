@@ -21,6 +21,25 @@ body {
     padding: 0;
     margin: 0;
     overflow: hidden;
+    animation: flow 360s linear infinite;
+}
+
+@-webkit-keyframes flow {
+    0% {
+        background: #F31A51;
+    }
+    20% {
+        background: #1d4e99;
+    }
+    40% {
+        background: #919191;
+    }
+    60% {
+        background: #363635;
+    }
+    80% {
+        background: #F31A51;
+    }
 }
 
 .fx-loading {
