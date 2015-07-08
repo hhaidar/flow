@@ -43,6 +43,10 @@ var Board = React.createClass({
         this.socket.on('connect', function() {
             console.log('connected');
         });
+        this.socket.on('task:data', function(data, task) {
+            console.log(data);
+            console.log(task);
+        }.bind(this));
     },
     componentDidMount: function() {
         window.addEventListener('resize', this.handleResize);

@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function(server) {
+module.exports = function(core, web) {
 
-    server.route({
+    web.server.route({
         method: 'GET',
         path: '/',
         handler: function (request, reply) {

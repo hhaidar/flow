@@ -2,9 +2,9 @@
 
 var path = require('path');
 
-module.exports = function(server) {
+module.exports = function(core, web) {
 
-    server.route({
+    web.server.route({
         method: 'GET',
         path: '/assets/{param*}',
         handler: {

@@ -6,14 +6,13 @@ var _ = require('lodash'),
     glob = require('glob'),
     path = require('path'),
     yaml = require('js-yaml'),
-    all = require('require-tree'),
-    events = require('eventemitter2');
+    all = require('require-tree');
 
-function Services(options) {
+function Services(core, options) {
 
     this.options = options;
 
-    this.events = new events.EventEmitter2();
+    this.core  = core;
 
     this.tasks = [];
 
@@ -34,30 +33,17 @@ function Services(options) {
 
 }
 
-Services.prototype.emit = function(event, data) {
-
-    return this.events.emit(event, data);
-
-};
-
-Services.prototype.on = function(event, fn) {
-
-    return this.events.on(event, fn);
-
-};
-
 Services.prototype.save = function(id, data) {
 
     this.store[id] = data;
 
-    this.emit('task:data', {
-        id: id,
-        data: data
+    this.core.emit('task:data', data, {
+        id: id
     });
 
 };
 
-Services.prototype.load = function() {
+Services.prototype.loadServices = function() {
 
     var that = this;
 
@@ -98,13 +84,14 @@ Services.prototype.load = function() {
             that.tasks.push(service);
 
         });
+
     });
 
 };
 
 Services.prototype.start = function(cb) {
 
-    this.load();
+    this.loadServices();
 
     this.agenda.start();
 
