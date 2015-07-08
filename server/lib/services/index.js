@@ -2,11 +2,13 @@
 
 var _ = require('lodash'),
     Agenda = require('agenda'),
+    async = require('async'),
     fs = require('fs'),
     glob = require('glob'),
     path = require('path'),
     yaml = require('js-yaml'),
-    all = require('require-tree');
+    all = require('require-tree'),
+    CachemanMongo = require('cacheman-mongo');
 
 function Services(core, options) {
 
@@ -16,7 +18,9 @@ function Services(core, options) {
 
     this.tasks = [];
 
-    this.store = {};
+    this.cache = new CachemanMongo('mongodb://127.0.0.1:27017/flow-cache', {
+        collection: 'cache'
+    });
 
     this.availableServices = _.mapValues(all(path.join(__dirname, './built-in'), {
         index: 'preserve'
@@ -33,17 +37,58 @@ function Services(core, options) {
 
 }
 
-Services.prototype.save = function(id, data) {
+Services.prototype.getAll = function(cb) {
 
-    this.store[id] = data;
+    var that = this;
 
-    this.core.emit('task:data', data, {
-        id: id
+    async.map(this.tasks, function(task, done) {
+
+        var id = task.options.id;
+
+        that.cache.get(id, function(err, data) {
+
+            if (err) {
+                done(err);
+                return;
+            }
+
+            if (!data) {
+                done();
+                return;
+            }
+
+            data.id = id;
+
+            done(null, data);
+
+        });
+
+    }, function(err, results) {
+
+        typeof cb === 'function' && cb(err, results);
+
     });
 
 };
 
-Services.prototype.loadServices = function() {
+Services.prototype.save = function(id, data) {
+
+    this.cache.set(id, data, function(err) {
+
+        if (err) {
+            throw error;
+            return;
+        }
+
+        this.core.emit('task:data', data, {
+            id: id
+        });
+
+    }.bind(this));
+
+};
+
+Services.prototype.loadServices = function(cb) {
 
     var that = this;
 
@@ -85,17 +130,21 @@ Services.prototype.loadServices = function() {
 
         });
 
+        typeof cb === 'function' && cb();
+
     });
 
 };
 
 Services.prototype.start = function(cb) {
 
-    this.loadServices();
+    this.loadServices(function() {
 
-    this.agenda.start();
+        this.agenda.start();
 
-    typeof cb === 'function' && cb();
+        typeof cb === 'function' && cb();
+
+    }.bind(this));
 
 };
 

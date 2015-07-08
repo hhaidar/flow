@@ -6,8 +6,6 @@ module.exports = function(core, web) {
 
         web.io.sockets.emit('task:data', data, task);
 
-        console.log('core!');
-
     });
 
     web.io.on('connection', function(socket) {

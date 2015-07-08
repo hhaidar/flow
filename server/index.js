@@ -15,8 +15,10 @@ var core = new Core(settings),
     web = new Web(core, settings),
     services = new Services(core, settings);
 
-web.start(function() {
-    var art = fs.readFileSync(path.join(__dirname, './misc/art.txt'), 'utf8').magenta;
-    console.log(art + '\nRelease ' + colors.yellow(psjon.version) + '\n');
-    services.start();
+core.start(function() {
+    web.start(function() {
+        var art = fs.readFileSync(path.join(__dirname, './misc/art.txt'), 'utf8').magenta;
+        console.log(art + '\nRelease ' + colors.yellow(psjon.version) + '\n');
+        services.start();
+    });
 });

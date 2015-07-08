@@ -55,7 +55,9 @@ Web.prototype.start = function(cb) {
     this.loadControllers();
 
     this.server.start(function() {
+
         typeof cb === 'function' && cb();
+
     });
 
 };
