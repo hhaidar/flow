@@ -8,6 +8,8 @@ function Provider(options) {
 
     this.options = options;
 
+    this.options.rapidID = options.rapidViewID || options.rapidViewId;
+
     this.client = new Client(
         'https',
         options.host,
@@ -21,20 +23,43 @@ function Provider(options) {
 
 Provider.prototype.fetch = function(done) {
 
-    var query = 'project = ' + this.options.project + ' '
-        + 'AND status in (Open, "In Progress", TODO, "Code Review", Deployable) '
-        + 'AND Sprint = 27 ';
+    var that = this;
 
-    this.client.searchJira(query, {}, function(err, results) {
+    this.client.getLastSprintForRapidView(this.options.rapidViewID, function(err, sprint) {
+
         if (err) {
-            console.error(err);
-            done(err);
+            throw err;
             return;
         }
-        var tickets = _.map(results.issues, function(issue) {
-            return issue.fields;
+
+        that.client.getSprintIssues(that.options.rapidViewID, sprint.id, function(err, issues) {
+
+            if (err) {
+                throw err;
+                return;
+            }
+
+            var combined = issues.contents.completedIssues.concat(issues.contents.incompletedIssues);
+
+            var results = _.map(that.options.statuses, function(status) {
+                var matches = _.filter(combined, function(issue) {
+                    return (status.name.toLowerCase() === issue.status.name.toLowerCase())
+                    || (_.contains(status.map, issue.status.name.toLowerCase()));
+                });
+                return {
+                    id: status.name,
+                    label: status.name,
+                    color: status.color,
+                    count: _.size(matches)
+                };
+            });
+
+            done(null, {
+                subtitle: issues.sprint.name,
+                data: results
+            });
+
         });
-        done(null, tickets);
     });
 
 };

@@ -19,6 +19,6 @@ web.start(function() {
     services.start();
 });
 
-services.on('task:data', function() {
+services.on('task:data', function(task) {
     console.log('got');
 });

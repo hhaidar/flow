@@ -29,7 +29,7 @@ function Services(options) {
         db: {
             address: 'localhost:27017/flow-agenda'
         },
-        defaultLockLifetime: 5000
+        defaultLockLifetime: 30 * 1000
     });
 
 }
@@ -88,6 +88,8 @@ Services.prototype.load = function() {
             });
 
             that.agenda.every(context.interval, context.id);
+
+            that.agenda.now(context.id);
 
             that.agenda.on('fail:' + context.id, function(err) {
                 console.log('[%s] Job failed with error: %s', context.id, err.message);
