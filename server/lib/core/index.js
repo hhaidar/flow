@@ -1,10 +1,13 @@
 'use strict';
 
-var events = require('eventemitter2');
+var events = require('eventemitter2'),
+    async = require('async');
 
-function Core(options) {
+function Core(options, components) {
 
     this.options = options;
+
+    this.components = components;
 
     this.events = new events.EventEmitter2();
 
@@ -16,7 +19,20 @@ function Core(options) {
 
 Core.prototype.start = function(cb) {
 
-    typeof cb === 'function' && cb();
+    var meta = [];
+
+    async.eachSeries(this.components, function(component, cb) {
+
+        component.start(function(err, messages) {
+            messages && meta.push(messages);
+            cb();
+        });
+
+    }, function(err) {
+
+        typeof cb === 'function' && cb(err, meta);
+
+    });
 
 };
 

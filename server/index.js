@@ -1,6 +1,7 @@
 'use strict';
 
-var colors = require('colors'),
+var _ = require('lodash'),
+    colors = require('colors'),
     fs = require('fs'),
     path = require('path');
 
@@ -18,10 +19,19 @@ var web = new Web(settings),
         services: services
     });
 
-core.start(function() {
+core.start(function(err, meta) {
+
+    if (err) {
+        throw err;
+    }
+
     var art = fs.readFileSync(path.join(__dirname, './misc/art.txt'), 'utf8').magenta;
     console.log(art + '\nRelease ' + colors.yellow(psjon.version) + '\n');
-    services.start(function() {
-        web.start();
+
+    _.each(meta, function(group) {
+        _.each(group, function(messages) {
+            console.log(messages);
+        });
     });
+
 });

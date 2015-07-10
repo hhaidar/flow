@@ -99,7 +99,7 @@ Services.prototype.loadServices = function(cb) {
     glob(path.join(__dirname, '../../../tasks/*.yml'), function(err, files) {
 
         if (err) {
-            console.error('Error loading tasks:', err);
+            throw err;
             return;
         }
 
@@ -108,8 +108,6 @@ Services.prototype.loadServices = function(cb) {
             var context = yaml.safeLoad(fs.readFileSync(file, 'utf8')),
                 Service = that.availableServices[context.service],
                 service = new Service(context);
-
-            console.log('Loaded: ' + (context.service + '/' + context.id).magenta);
 
             that.agenda.define(context.id, function(job, done) {
                 service.fetch(function(err, data) {
@@ -134,7 +132,7 @@ Services.prototype.loadServices = function(cb) {
 
         });
 
-        typeof cb === 'function' && cb();
+        typeof cb === 'function' && cb(null, that.tasks);
 
     });
 
@@ -142,11 +140,17 @@ Services.prototype.loadServices = function(cb) {
 
 Services.prototype.start = function(cb) {
 
-    this.loadServices(function() {
+    this.loadServices(function(err, tasks) {
+
+        var messages = [];
+
+        _.each(tasks, function(task) {
+            messages.push('Loaded: ' + (task.options.service + '/' + task.options.id).magenta);
+        });
+
+        typeof cb === 'function' && cb(err, messages);
 
         this.agenda.start();
-
-        typeof cb === 'function' && cb();
 
     }.bind(this));
 
