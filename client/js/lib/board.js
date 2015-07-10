@@ -9,7 +9,7 @@ var Grid = require('./grid');
 var Clock = require('./widgets/clock'),
     Weather = require('./widgets/weather'),
     Progress = require('./widgets/progress'),
-    Status = require('./widgets/status')
+    Status = require('./widgets/status');
 
 var styles = {
     base: {
@@ -46,7 +46,7 @@ var Board = React.createClass({
         this.socket.on('task:data', function(data, task) {
             console.log(data);
             console.log(task);
-        }.bind(this));
+        });
     },
     componentDidMount: function() {
         window.addEventListener('resize', this.handleResize);

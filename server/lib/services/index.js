@@ -81,8 +81,7 @@ Services.prototype.save = function(id, data) {
     this.cache.set(id, data, function(err) {
 
         if (err) {
-            throw error;
-            return;
+            throw err;
         }
 
         this.emit('task:data', data, {

@@ -89,12 +89,12 @@ var data = [
         color: '#9EBF6D',
         count: 21
     }
-]
+];
 
 var total = +function() {
     var sum = 0;
     _.each(data, function(state) {
-        sum += state.count
+        sum += state.count;
     });
     return sum;
 }();

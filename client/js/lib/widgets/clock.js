@@ -27,7 +27,7 @@ var styles = {
         fontSize: '50px',
         marginTop: '20px'
     }
-}
+};
 
 var Clock = React.createClass({
     getInitialState: function() {
@@ -36,8 +36,8 @@ var Clock = React.createClass({
                 time: moment().format('h:mm'),
                 meridiem: moment().format('A'),
                 date: moment().format('dddd, MMMM Do YYYY')
-            }
-        }
+            };
+        };
         this.timer = setInterval(function() {
             this.setState(tick());
         }.bind(this), 1 * 1000);

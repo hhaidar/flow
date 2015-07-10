@@ -15,9 +15,9 @@ var styles = {
 var unit = {
     width: 1920 / 6,
     height: 1080 / 4
-}
+};
 
-var path = 'M' + unit.width +  ' 0 L 0 0 0 ' + unit.height;
+var path = 'M' + unit.width + ' 0 L 0 0 0 ' + unit.height;
 
 var Grid = React.createClass({
     render: function() {

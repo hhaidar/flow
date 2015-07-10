@@ -28,7 +28,7 @@ var styles = {
         fontSize: '30px',
         marginTop: '20px'
     }
-}
+};
 
 var Weather = React.createClass({
     getInitialState: function() {
@@ -38,7 +38,7 @@ var Weather = React.createClass({
                 celsius: 22,
                 fahrenheit: 78
             }
-        }
+        };
     },
     render: function() {
         return (

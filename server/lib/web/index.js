@@ -24,7 +24,7 @@ function Web(options) {
         port: options.port
     });
 
-    this.server.register([  {
+    this.server.register([{
         register: require('hapi-io')
     }], function (err) {
         if (err) {
@@ -53,7 +53,7 @@ Web.prototype.loadControllers = function() {
         controller(this, this.server, this.io);
     }.bind(this));
 
-}
+};
 
 Web.prototype.start = function(cb) {
 

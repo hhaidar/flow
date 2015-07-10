@@ -7,7 +7,7 @@ var React = require('react'),
 var options = {
     radius: 100,
     stroke: 15
-}
+};
 
 var styles = {
     base: {
@@ -59,12 +59,12 @@ var polarToCartesian = function(centerX, centerY, radius, angleInDegrees) {
 // via https://github.com/crisbeto/angular-svg-round-progressbar <3
 var arc = function(val, total, radius, size) {
 
-    var value       = val >= total ? total - 0.00001 : val,
-        perc        = total === 0 ? 0 : (value / total) * 359.9999,
-        x           = size / 2,
-        start       = polarToCartesian(x, x, radius, perc),
-        end         = polarToCartesian(x, x, radius, 0),
-        arcSweep    = (perc <= 180 ? '0' : '1');
+    var value = val >= total ? total - 0.00001 : val,
+        perc = total === 0 ? 0 : (value / total) * 359.9999,
+        x = size / 2,
+        start = polarToCartesian(x, x, radius, perc),
+        end = polarToCartesian(x, x, radius, 0),
+        arcSweep = (perc <= 180 ? '0' : '1');
 
     return [
         'M', start.x, start.y,
@@ -84,7 +84,7 @@ var Status = React.createClass({
                                 fill="rgba(0, 0, 0, .2"
                                 style={[
                                     styles.background
-                                ]} 
+                                ]}
                                 cx={options.radius}
                                 cy={options.radius}
                                 r={options.radius - options.stroke / 2}

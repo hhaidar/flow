@@ -23,7 +23,6 @@ Provider.prototype.fetch = function(done) {
     this.client.get(this.options.location, function(err, weather) {
         if (err) {
             throw err;
-            return;
         }
         done(null, {
             summary: weather.currently.summary,

@@ -10,12 +10,12 @@ module.exports = function(web, server, io) {
 
     io.on('connection', function(socket) {
 
-        core.emit('board:get', function(data, board) {
+        web.emit('board:get', function(data, board) {
 
-            socket.emit('board:data', data, board); 
+            socket.emit('board:data', data, board);
 
         });
 
     });
 
-}
+};

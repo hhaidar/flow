@@ -29,14 +29,12 @@ Provider.prototype.fetch = function(done) {
 
         if (err) {
             throw err;
-            return;
         }
 
         that.client.getSprintIssues(that.options.rapidViewID, sprint.id, function(err, issues) {
 
             if (err) {
                 throw err;
-                return;
             }
 
             var combined = issues.contents.completedIssues.concat(issues.contents.incompletedIssues);
