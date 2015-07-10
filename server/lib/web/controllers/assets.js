@@ -2,7 +2,7 @@
 
 var path = require('path');
 
-module.exports = function(core, web) {
+module.exports = function(web, server, io) {
 
     web.server.route({
         method: 'GET',

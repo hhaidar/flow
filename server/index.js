@@ -11,14 +11,17 @@ var Core = require('./lib/core'),
     Web = require('./lib/web'),
     Services = require('./lib/services');
 
-var core = new Core(settings),
-    web = new Web(core, settings),
-    services = new Services(core, settings);
+var web = new Web(settings),
+    services = new Services(settings),
+    core = new Core(settings, {
+        web: web,
+        services: services
+    });
 
 core.start(function() {
-    web.start(function() {
-        var art = fs.readFileSync(path.join(__dirname, './misc/art.txt'), 'utf8').magenta;
-        console.log(art + '\nRelease ' + colors.yellow(psjon.version) + '\n');
-        services.start();
+    var art = fs.readFileSync(path.join(__dirname, './misc/art.txt'), 'utf8').magenta;
+    console.log(art + '\nRelease ' + colors.yellow(psjon.version) + '\n');
+    services.start(function() {
+        web.start();
     });
 });

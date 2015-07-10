@@ -8,13 +8,18 @@ var _ = require('lodash'),
     path = require('path'),
     yaml = require('js-yaml'),
     all = require('require-tree'),
+    events = require('eventemitter2'),
     CachemanMongo = require('cacheman-mongo');
 
-function Services(core, options) {
+function Services(options) {
 
     this.options = options;
 
-    this.core  = core;
+    this.events = new events.EventEmitter2();
+
+    this.emit = this.events.emit;
+
+    this.on = this.events.on;
 
     this.tasks = [];
 
@@ -80,7 +85,7 @@ Services.prototype.save = function(id, data) {
             return;
         }
 
-        this.core.emit('task:data', data, {
+        this.emit('task:data', data, {
             id: id
         });
 

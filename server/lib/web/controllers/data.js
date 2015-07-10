@@ -1,14 +1,14 @@
 'use strict';
 
-module.exports = function(core, web) {
+module.exports = function(web, server, io) {
 
-    core.on('task:data', function(data, task) {
+    web.on('task:data', function(data, task) {
 
         web.io.sockets.emit('task:data', data, task);
 
     });
 
-    web.io.on('connection', function(socket) {
+    io.on('connection', function(socket) {
 
         core.emit('board:get', function(data, board) {
 

@@ -4,13 +4,18 @@ var _ = require('lodash'),
     Hapi = require('hapi'),
     nunjucks = require('nunjucks-hapi'),
     path = require('path'),
+    events = require('eventemitter2'),
     all = require('require-tree');
 
-function Web(core, options) {
+function Web(options) {
 
     this.options = options;
 
-    this.core = core;
+    this.events = new events.EventEmitter2();
+
+    this.emit = this.events.emit;
+
+    this.on = this.events.on;
 
     this.server = new Hapi.Server();
 
@@ -45,7 +50,7 @@ Web.prototype.loadControllers = function() {
     var controllers = all(path.join(__dirname, './controllers'));
 
     _.each(controllers, function(controller) {
-        controller(this.core, this);
+        controller(this, this.server, this.io);
     }.bind(this));
 
 }
