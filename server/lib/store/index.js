@@ -14,6 +14,8 @@ function Store(options) {
 
     this.on = this.events.on;
 
+    this.tasks = [];
+
     this.cache = new CachemanMongo('mongodb://127.0.0.1:27017/flow-cache', {
         collection: 'cache'
     });
@@ -36,7 +38,7 @@ Store.prototype.getAll = function(cb) {
 
     async.map(this.tasks, function(task, done) {
 
-        var id = task.options.id;
+        var id = 'task:' + task.options.id;
 
         that.cache.get(id, function(err, data) {
 
@@ -50,7 +52,7 @@ Store.prototype.getAll = function(cb) {
                 return;
             }
 
-            data.id = id;
+            data.id = task.options.id;
 
             done(null, data);
 
@@ -81,6 +83,14 @@ Store.prototype.set = function(id, data, cb) {
         typeof cb === 'function' && cb();
 
     });
+
+};
+
+Store.prototype.setTasks = function(tasks, cb) {
+
+    this.tasks = tasks;
+
+    typeof cb === 'function' && cb();
 
 };
 

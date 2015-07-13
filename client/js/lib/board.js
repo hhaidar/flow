@@ -29,7 +29,8 @@ var Board = React.createClass({
     getInitialState: function() {
         return {
             windowWidth: window.innerWidth,
-            windowHeight: window.innerHeight
+            windowHeight: window.innerHeight,
+            tasks: {}
         };
     },
     handleResize: function() {
@@ -39,14 +40,31 @@ var Board = React.createClass({
         });
     },
     componentWillMount: function() {
+
+        var that = this;
+
         this.socket = io.connect();
+
         this.socket.on('connect', function() {
-            console.log('connected');
+
+            that.socket.emit('tasks:get', function(tasks) {
+                for (var task in tasks) {
+                    that.setState(function(state) {
+                        state.tasks[task.id] = task.data;
+                        return state;
+                    });
+                }
+            });
+
         });
-        this.socket.on('task:data', function(data, task) {
-            console.log(data);
-            console.log(task);
+
+        this.socket.on('task:update', function(data, task) {
+            that.setState(function(state) {
+                state.tasks[task.id] = data;
+                return state;
+            });
         });
+
     },
     componentDidMount: function() {
         window.addEventListener('resize', this.handleResize);
@@ -69,7 +87,7 @@ var Board = React.createClass({
                 <Grid />
                 <Clock width="2" height="1" x="4" y="0" />
                 <Weather width="2" height="1" x="4" y="1" />
-                <Progress title="Jira" subtitle="Version 3.3 &mdash; Sprint 14" width="4" height="2" x="0" y="0" />
+                <Progress source={this.state.tasks['jira-sde']} title="Jira" subtitle="Version 3.3 &mdash; Sprint 14" width="4" height="2" x="0" y="0" />
                 <Status title="Production" width="2" height="2" x="0" y="2" value="15" total="22" />
                 <Status title="Internal" width="2" height="2" x="2" y="2" value="7" total="7" />
                 <Status title="Jenkins" width="2" height="2" x="4" y="2" value="41" total="41" />

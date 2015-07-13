@@ -76,6 +76,8 @@ Services.prototype.loadServices = function(cb) {
 
         });
 
+        that.store.setTasks(that.tasks);
+
         typeof cb === 'function' && cb(null, that.tasks);
 
     });
