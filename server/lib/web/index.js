@@ -4,18 +4,13 @@ var _ = require('lodash'),
     Hapi = require('hapi'),
     nunjucks = require('nunjucks-hapi'),
     path = require('path'),
-    events = require('eventemitter2'),
     all = require('require-tree');
 
-function Web(options) {
+function Web(options, store) {
 
     this.options = options;
 
-    this.events = new events.EventEmitter2();
-
-    this.emit = this.events.emit;
-
-    this.on = this.events.on;
+    this.store = store;
 
     this.server = new Hapi.Server();
 

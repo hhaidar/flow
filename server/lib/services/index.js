@@ -2,30 +2,19 @@
 
 var _ = require('lodash'),
     Agenda = require('agenda'),
-    async = require('async'),
     fs = require('fs'),
     glob = require('glob'),
     path = require('path'),
     yaml = require('js-yaml'),
-    all = require('require-tree'),
-    events = require('eventemitter2'),
-    CachemanMongo = require('cacheman-mongo');
+    all = require('require-tree');
 
-function Services(options) {
+function Services(options, store) {
 
     this.options = options;
 
-    this.events = new events.EventEmitter2();
-
-    this.emit = this.events.emit;
-
-    this.on = this.events.on;
+    this.store = store;
 
     this.tasks = [];
-
-    this.cache = new CachemanMongo('mongodb://127.0.0.1:27017/flow-cache', {
-        collection: 'cache'
-    });
 
     this.availableServices = _.mapValues(all(path.join(__dirname, './built-in'), {
         index: 'preserve'
@@ -42,53 +31,9 @@ function Services(options) {
 
 }
 
-Services.prototype.getAll = function(cb) {
-
-    var that = this;
-
-    async.map(this.tasks, function(task, done) {
-
-        var id = task.options.id;
-
-        that.cache.get(id, function(err, data) {
-
-            if (err) {
-                done(err);
-                return;
-            }
-
-            if (!data) {
-                done();
-                return;
-            }
-
-            data.id = id;
-
-            done(null, data);
-
-        });
-
-    }, function(err, results) {
-
-        typeof cb === 'function' && cb(err, results);
-
-    });
-
-};
-
 Services.prototype.save = function(id, data) {
 
-    this.cache.set(id, data, function(err) {
-
-        if (err) {
-            throw err;
-        }
-
-        this.emit('task:data', data, {
-            id: id
-        });
-
-    }.bind(this));
+    this.store.set(id, data);
 
 };
 
@@ -100,7 +45,6 @@ Services.prototype.loadServices = function(cb) {
 
         if (err) {
             throw err;
-            return;
         }
 
         _.each(files, function(file) {
@@ -116,7 +60,7 @@ Services.prototype.loadServices = function(cb) {
                         console.error(err);
                         return;
                     }
-                    that.save(context.id, data);
+                    that.save('job:' + context.id, data);
                 });
             });
 
