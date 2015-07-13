@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = function(web, server, io) {
+module.exports = function(web, server, io, store) {
 
-    web.on('task:data', function(data, task) {
+    store.on('task:update', function(data, task) {
 
-        web.io.sockets.emit('task:data', data, task);
+        web.io.sockets.emit('task:update', data, task);
 
     });
 

@@ -45,7 +45,7 @@ Web.prototype.loadControllers = function() {
     var controllers = all(path.join(__dirname, './controllers'));
 
     _.each(controllers, function(controller) {
-        controller(this, this.server, this.io);
+        controller(this, this.server, this.io, this.store);
     }.bind(this));
 
 };

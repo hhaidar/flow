@@ -4,7 +4,6 @@ var events = require('eventemitter2'),
     async = require('async'),
     CachemanMongo = require('cacheman-mongo');
 
-
 function Store(options) {
 
     this.options = options;
@@ -66,6 +65,12 @@ Store.prototype.getAll = function(cb) {
 };
 
 Store.prototype.set = function(id, data, cb) {
+
+    if (/^task:[a-z-_ ]+/i.test(id)) {
+        this.emit('task:update', data, {
+            id: id.match(/^task:([a-z-_ ]+)/)[1]
+        });
+    }
 
     this.cache.set(id, data, function(err) {
 

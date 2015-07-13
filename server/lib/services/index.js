@@ -53,14 +53,14 @@ Services.prototype.loadServices = function(cb) {
                 Service = that.availableServices[context.service],
                 service = new Service(context);
 
-            that.agenda.define(context.id, function(job, done) {
+            that.agenda.define(context.id, function(task, done) {
                 service.fetch(function(err, data) {
                     done();
                     if (err) {
                         console.error(err);
                         return;
                     }
-                    that.save('job:' + context.id, data);
+                    that.save('task:' + context.id, data);
                 });
             });
 
@@ -69,7 +69,7 @@ Services.prototype.loadServices = function(cb) {
             that.agenda.now(context.id);
 
             that.agenda.on('fail:' + context.id, function(err) {
-                console.log('[%s] Job failed with error: %s', context.id, err.message);
+                console.log('[%s] Task failed with error: %s', context.id, err.message);
             });
 
             that.tasks.push(service);
