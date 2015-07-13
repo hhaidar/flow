@@ -58,57 +58,31 @@ var styles = {
     }
 };
 
-var data = [
-    {
-        id: 'todo',
-        label: 'TO-DO',
-        color: '#2b5797',
-        count: 8
-    },
-    {
-        id: 'progress',
-        label: 'In Progress',
-        color: '#b91d47',
-        count: 14
-    },
-    {
-        id: 'review',
-        label: 'Review',
-        color: '#e3a21a',
-        count: 12
-    },
-    {
-        id: 'qa',
-        label: 'QA',
-        color: '#7e3878',
-        count: 4
-    },
-    {
-        id: 'accepted',
-        label: 'Accepted',
-        color: '#9EBF6D',
-        count: 21
-    }
-];
-
-var total = +function() {
-    var sum = 0;
-    _.each(data, function(state) {
-        sum += state.count;
-    });
-    return sum;
-}();
-
 var Progress = React.createClass({
+    getInitialState: function() {
+        return {
+            data: []
+        }
+    },
+    getTotal: function() {
+        var sum = 0;
+        _.each(this.props.source, function(state) {
+            sum += state.count;
+        });
+        return sum;
+    },
     render: function() {
+
+        var that = this;
+
         return (
             <Widget {...this.props}>
                 <div style={[styles.progress]}>
-                    {data.map(function(state) {
+                    {this.props.source && this.props.source.map(function(state) {
                         return (
                             <div key={state.id} style={[styles.bar, {
                                 background: state.color,
-                                width: (state.count / total * 100) + '%'
+                                width: (state.count / that.getTotal() * 100) + '%'
                             }]}>
                                 <div style={[styles.meta]}>
                                     <span style={[styles.count]}>{state.count}</span>
@@ -122,6 +96,7 @@ var Progress = React.createClass({
                 </div>
             </Widget>
         );
+
     }
 });
 

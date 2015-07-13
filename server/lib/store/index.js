@@ -74,7 +74,7 @@ Store.prototype.set = function(id, data, cb) {
         });
     }
 
-    this.cache.set(id, data, function(err) {
+    this.cache.set(id, data, Infinity, function(err) {
 
         if (err) {
             throw err;

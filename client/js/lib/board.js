@@ -1,6 +1,7 @@
 'use strict';
 
-var React = require('react'),
+var _ = require('lodash'),
+    React = require('react'),
     Radium = require('radium'),
     io = require('socket.io-client');
 
@@ -48,12 +49,12 @@ var Board = React.createClass({
         this.socket.on('connect', function() {
 
             that.socket.emit('tasks:get', function(tasks) {
-                for (var task in tasks) {
+                _.each(tasks, function(task) {
                     that.setState(function(state) {
                         state.tasks[task.id] = task.data;
                         return state;
                     });
-                }
+                });
             });
 
         });
