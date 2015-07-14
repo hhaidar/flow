@@ -1,0 +1,11 @@
+#
+# Example Task
+#
+
+# All tasks need these 3 options
+id: jira-sde
+service: jira
+interval: 10 minutes
+
+# You may also pass in custom options
+myoption: myvalue
