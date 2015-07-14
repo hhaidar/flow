@@ -64,7 +64,9 @@ Provider.prototype.fetch = function(done) {
 module.exports = Provider;
 ```
 
-Services do not actually ran on their own. You'll need to create a task file in `/tasks` that calls the service and passes it whatever options it needs (interval, api key, etc..)
+## Task files
+
+Services do not actually run on their own. You'll need to create a task file in `/tasks` that calls the service and passes it whatever options it needs (interval, api key, etc..)
 
 Here's what a task file looks like:
 
@@ -77,4 +79,22 @@ interval: 30 minutes
 location: [43.6482, -79.3887]
 source: forecast.io
 key: blahblah
+```
+
+## Running tasks
+
+You actually don't have to run the server to see what a service will fetch.
+
+There's a handy command-line tool available and here's how to use it:
+
+```
+node manage.js run ./tasks/weather.yml
+```
+
+```
+Running [weather-toronto]
+{ summary: 'Partly Cloudy',
+  icon: 'partly-cloudy-day',
+  temperature: 23.62,
+  timezone: 'America/Toronto' }
 ```
