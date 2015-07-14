@@ -22,13 +22,6 @@ function Services(options, store) {
         return val.index;
     });
 
-    this.agenda = new Agenda({
-        db: {
-            address: 'localhost:27017/flow-agenda'
-        },
-        defaultLockLifetime: 30 * 1000
-    });
-
 }
 
 Services.prototype.save = function(id, data) {
@@ -36,6 +29,16 @@ Services.prototype.save = function(id, data) {
     this.store.set(id, data);
 
 };
+
+Services.prototype.loadService = function(file, cb) {
+
+    var context = yaml.safeLoad(fs.readFileSync(file, 'utf8')),
+        Service = this.availableServices[context.service],
+        service = new Service(context);
+
+    typeof cb === 'function' && cb(null, service, context);
+
+}
 
 Services.prototype.loadServices = function(cb) {
 
@@ -49,30 +52,34 @@ Services.prototype.loadServices = function(cb) {
 
         _.each(files, function(file) {
 
-            var context = yaml.safeLoad(fs.readFileSync(file, 'utf8')),
-                Service = that.availableServices[context.service],
-                service = new Service(context);
+            that.loadService(file, function(err, service, context) {
 
-            that.agenda.define(context.id, function(task, done) {
-                service.fetch(function(err, data) {
-                    done();
-                    if (err) {
-                        console.error(err);
-                        return;
-                    }
-                    that.save('task:' + context.id, data);
+                if (err) {
+                    throw err;
+                }
+
+                that.agenda.define(context.id, function(task, done) {
+                    service.fetch(function(err, data) {
+                        done();
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+                        that.save('task:' + context.id, data);
+                    });
                 });
-            });
 
-            that.agenda.every(context.interval, context.id);
+                that.agenda.every(context.interval, context.id);
 
-            that.agenda.now(context.id);
+                that.agenda.now(context.id);
 
-            that.agenda.on('fail:' + context.id, function(err) {
-                console.log('[%s] Task failed with error: %s', context.id, err.message);
-            });
+                that.agenda.on('fail:' + context.id, function(err) {
+                    console.log('[%s] Task failed with error: %s', context.id, err.message);
+                });
 
-            that.tasks.push(service);
+                that.tasks.push(service);
+
+            })
 
         });
 
@@ -85,6 +92,13 @@ Services.prototype.loadServices = function(cb) {
 };
 
 Services.prototype.start = function(cb) {
+
+    this.agenda = new Agenda({
+        db: {
+            address: 'localhost:27017/flow-agenda'
+        },
+        defaultLockLifetime: 30 * 1000
+    });
 
     this.loadServices(function(err, tasks) {
 
