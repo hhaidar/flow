@@ -8,6 +8,7 @@ function Provider(options) {
 }
 
 Provider.prototype.fetch = function(done) {
+
     var colorMap = {
         'red':      'failure',
         'blue':     'success',
@@ -16,7 +17,6 @@ Provider.prototype.fetch = function(done) {
         'disabled': 'success',
         'yellow':   'success'   // warning
     };
-    var jobs = [];
     request.get({
         url: this.options.url,
         json: true
@@ -28,7 +28,6 @@ Provider.prototype.fetch = function(done) {
             value: jobs.success, 
             total: jobs.success + jobs.failure
         }
-        console.log(data);
         done(null, data);
     });
 

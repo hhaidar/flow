@@ -59,6 +59,10 @@ var polarToCartesian = function(centerX, centerY, radius, angleInDegrees) {
 // via https://github.com/crisbeto/angular-svg-round-progressbar <3
 var arc = function(val, total, radius, size) {
 
+    val = parseInt(val || 0, 10);
+
+    total = parseInt(total || 0, 10);
+
     var value = val >= total ? total - 0.00001 : val,
         perc = total === 0 ? 0 : (value / total) * 359.9999,
         x = size / 2,
