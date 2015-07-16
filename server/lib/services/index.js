@@ -54,7 +54,8 @@ Services.prototype.loadService = function(file, cb) {
 
 Services.prototype.loadServices = function(cb) {
 
-    var that = this;
+    var that = this,
+        messages = [];
 
     glob(path.join(__dirname, '../../../tasks/*.yml'), function(err, files) {
 
@@ -67,7 +68,7 @@ Services.prototype.loadServices = function(cb) {
             that.loadService(file, function(err, service, context) {
 
                 if (err) {
-                    console.error(err);
+                    messages.push(err);
                     return;
                 }
 
@@ -92,13 +93,15 @@ Services.prototype.loadServices = function(cb) {
 
                 that.tasks.push(service);
 
+                messages.push('Loaded: ' + (context.service + '/' + context.id).magenta)
+
             })
 
         });
 
         that.store.setTasks(that.tasks);
 
-        typeof cb === 'function' && cb(null, that.tasks);
+        typeof cb === 'function' && cb(null, this.tasks, messages);
 
     });
 
@@ -113,15 +116,9 @@ Services.prototype.start = function(cb) {
         defaultLockLifetime: 30 * 1000
     });
 
-    this.loadServices(function(err, tasks) {
+    this.loadServices(function(err, tasks, output) {
 
-        var messages = [];
-
-        _.each(tasks, function(task) {
-            messages.push('Loaded: ' + (task.options.service + '/' + task.options.id).magenta);
-        });
-
-        typeof cb === 'function' && cb(err, messages);
+        typeof cb === 'function' && cb(err, output);
 
         this.agenda.start();
 
