@@ -3,6 +3,7 @@
 var _ = require('lodash'),
     React = require('react'),
     Radium = require('radium'),
+    hotkey = require('react-hotkey'),
     io = require('socket.io-client');
 
 var Grid = require('./grid');
@@ -27,10 +28,12 @@ var styles = {
 };
 
 var Board = React.createClass({
+    mixins: [hotkey.Mixin('handleHotkey')],
     getInitialState: function() {
         return {
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight,
+            gridActive: false,
             tasks: {}
         };
     },
@@ -66,12 +69,21 @@ var Board = React.createClass({
             });
         });
 
+        hotkey.activate();
+
     },
     componentDidMount: function() {
         window.addEventListener('resize', this.handleResize);
     },
     componentWillUnmount: function() {
         window.removeEventListener('resize', this.handleResize);
+    },
+    handleHotkey: function(e) {
+        if (e.which === 71) {
+            this.setState({
+                gridActive: !this.state.gridActive
+            });
+        }
     },
     render: function() {
         return (
@@ -85,7 +97,7 @@ var Board = React.createClass({
                     ]
                 }
             >
-                <Grid />
+                <Grid active={this.state.gridActive} />
                 <Clock width="2" height="1" x="4" y="0" />
                 <Weather width="2" height="1" x="4" y="1" />
                 <Progress source={this.state.tasks['jira-sde']} title="Jira" subtitle="Version 3.3 &mdash; Sprint 14" width="4" height="2" x="0" y="0" />
