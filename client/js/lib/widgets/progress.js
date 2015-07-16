@@ -25,7 +25,7 @@ var styles = {
         position: 'relative',
         bottom: '-100%',
         marginTop: '10px',
-        paddingTop: '10px'
+        paddingTop: '10px',
     },
     count: {
         fontWeight: '600',
@@ -34,8 +34,12 @@ var styles = {
         letterSpacing: '5px'
     },
     label: {
+        maxWidth: '100%',
+        minHeight: '40px',
         display: 'block',
-        marginTop: '5px'
+        marginTop: '5px',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap'
     },
     point: {
         background: '#fff padding-box',
@@ -79,6 +83,9 @@ var Progress = React.createClass({
             <Widget {...this.props}>
                 <div style={[styles.progress]}>
                     {this.props.source && this.props.source.map(function(state) {
+                        if (state.count < 1) {
+                            return;
+                        }
                         return (
                             <div key={state.id} style={[styles.bar, {
                                 background: state.color,
