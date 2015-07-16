@@ -8,6 +8,8 @@ var _ = require('lodash'),
 
 program.version('1.0')
        .option('-p, --port <port>', 'port to run server on', parseInt)
+       .option('-h, --host <hostname>', 'name of host to run server on')
+       .option('-d, --database <database_uri>', 'uri of database to use')
        .parse(process.argv);
 
 var pipeline = [
@@ -32,11 +34,13 @@ var pipeline = [
 
     function getCommandLineArgs(context) {
         if (program.port) {
-            console.log("BEFORE");
-            console.log(context);
             context.result.port = program.port;
-            console.log("AFTER");
-            console.log(context);
+        }
+        if (program.host) {
+            context.result.host = program.host;
+        }
+        if (program.database) {
+            context.result.database = program.database;
         }
     },
 ];
