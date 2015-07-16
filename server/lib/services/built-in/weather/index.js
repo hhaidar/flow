@@ -28,7 +28,7 @@ Provider.prototype.fetch = function(done) {
             summary: weather.currently.summary,
             icon: weather.currently.icon,
             temperature: weather.currently.temperature,
-            timezone: weather.timezone
+            location: weather.timezone
         });
     });
 

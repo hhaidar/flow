@@ -85,6 +85,9 @@ var Board = React.createClass({
             });
         }
     },
+    getTaskData: function(id, property) {
+        return this.state.tasks[id] && this.state.tasks[id][property] || null;
+    },
     render: function() {
         return (
             <div className="fx-board"
@@ -99,8 +102,12 @@ var Board = React.createClass({
             >
                 <Grid active={this.state.gridActive} />
                 <Clock width="2" height="1" x="4" y="0" />
-                <Weather width="2" height="1" x="4" y="1" />
-                <Progress source={this.state.tasks['jira-sde']} title="Jira" subtitle="Version 3.3 &mdash; Sprint 14" width="4" height="2" x="0" y="0" />
+                <Weather
+                    temperature={this.getTaskData('weather-toronto', 'temperature')}
+                    location={this.getTaskData('weather-toronto', 'location')}
+                    icon={this.getTaskData('weather-toronto', 'icon')}
+                    width="2" height="1" x="4" y="1" />
+                <Progress items={this.getTaskData('jira-sde', 'items')} title="Jira" subtitle={this.getTaskData('jira-sde', 'sprint')} width="4" height="2" x="0" y="0" />
                 <Status title="Production" width="2" height="2" x="0" y="2" value="15" total="22" />
                 <Status title="Internal" width="2" height="2" x="2" y="2" value="7" total="7" />
                 <Status title="Jenkins" width="2" height="2" x="4" y="2" value="41" total="41" />

@@ -31,30 +31,29 @@ var styles = {
 };
 
 var Weather = React.createClass({
-    getInitialState: function() {
-        return {
-            location: 'Toronto, ON',
-            temperature: {
-                celsius: 22,
-                fahrenheit: 78
-            }
-        };
+    normalizeSkycon: function(text) {
+        if (!text) {
+            return 'CLEAR_DAY';
+        }
+        return String(text).toUpperCase().replace(/-/, '_');
     },
     render: function() {
         return (
             <Widget {...this.props}>
                 <div style={[styles.base]}>
                     <span style={[styles.skycon]}>
-                        <Skycons color='white' icon='PARTLY_CLOUDY_DAY' autoplay={true} />
+                        <Skycons color='white'
+                            icon={this.normalizeSkycon(this.props.icon)}
+                            autoplay={true} />
                     </span>
                     <span style={[styles.temperature]}>
-                        {this.state.temperature.celsius}
+                        {Math.floor(this.props.temperature)}
                         <small style={[{ fontSize: '80%', fontWeight: '300', marginLeft: '10px' }]}>
                             c
                         </small>
                     </span>
                     <span style={[styles.location]}>
-                        {this.state.location}
+                        {this.props.timezone}
                     </span>
                 </div>
             </Widget>

@@ -56,8 +56,8 @@ Provider.prototype.fetch = function(done) {
             });
 
             done(null, {
-                subtitle: issues.sprint.name,
-                data: results
+                sprint: issues.sprint.name,
+                items: results
             });
 
         });

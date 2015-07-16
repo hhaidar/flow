@@ -63,14 +63,9 @@ var styles = {
 };
 
 var Progress = React.createClass({
-    getInitialState: function() {
-        return {
-            data: []
-        }
-    },
     getTotal: function() {
         var sum = 0;
-        _.each(this.props.source, function(state) {
+        _.each(this.props.items, function(state) {
             sum += state.count;
         });
         return sum;
@@ -82,7 +77,7 @@ var Progress = React.createClass({
         return (
             <Widget {...this.props}>
                 <div style={[styles.progress]}>
-                    {this.props.source && this.props.source.map(function(state) {
+                    {this.props.items && this.props.items.map(function(state) {
                         if (state.count < 1) {
                             return;
                         }

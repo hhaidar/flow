@@ -52,9 +52,10 @@ Store.prototype.getAll = function(cb) {
                 return;
             }
 
-            data.id = task.options.id;
-
-            done(null, data);
+            done(null, {
+                id: task.options.id,
+                data: data
+            });
 
         });
 
