@@ -3,4 +3,10 @@
 #
 
 host:
-port: 3000
+port: 9000
+
+database: mongodb://localhost:27017/flow
+
+collections:
+    agenda: agenda
+    cache: cache

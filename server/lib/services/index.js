@@ -111,7 +111,8 @@ Services.prototype.start = function(cb) {
 
     this.agenda = new Agenda({
         db: {
-            address: 'localhost:27017/flow-agenda'
+            address: this.options.database,
+            collection: this.options.collections.agenda
         },
         defaultLockLifetime: 30 * 1000
     });
