@@ -101,7 +101,11 @@ var Board = React.createClass({
                 }
             >
                 <Grid active={this.state.gridActive} />
+                <Clock width="2" height="1" x="0" y="0" />
+                <Clock width="2" height="1" x="2" y="0" />
                 <Clock width="2" height="1" x="4" y="0" />
+                <Clock width="2" height="1" x="0" y="3" />
+                <Clock width="2" height="1" x="2" y="3" />
                 <Weather
                     temperature={this.getTaskData('weather-toronto', 'temperature')}
                     location={this.getTaskData('weather-toronto', 'location')}

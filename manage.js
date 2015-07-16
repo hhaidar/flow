@@ -13,7 +13,7 @@ var services = new Services();
 
 program
     .version(pjson.version)
-    .command('run <task file>')
+    .command('run <taskfile>')
     .action(function(file) {
 
         glob(path.join(__dirname, file), function(err, files) {
