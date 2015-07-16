@@ -40,9 +40,12 @@ Provider.prototype.fetch = function(done) {
             var combined = issues.contents.completedIssues.concat(issues.contents.incompletedIssues);
 
             var results = _.map(that.options.statuses, function(status) {
+                var map = _.map(status.map, function(id) {
+                    return String(id).toLowerCase();
+                });
                 var matches = _.filter(combined, function(issue) {
                     return (status.name.toLowerCase() === issue.status.name.toLowerCase())
-                    || (_.contains(status.map, issue.status.name.toLowerCase()));
+                    || (_.contains(map, issue.status.name.toLowerCase()));
                 });
                 return {
                     id: status.name,
