@@ -110,7 +110,7 @@ var Board = React.createClass({
                 <Progress items={this.getTaskData('jira-sde', 'items')} title="Jira" subtitle={this.getTaskData('jira-sde', 'sprint')} width="4" height="2" x="0" y="0" />
                 <Status title="Production" width="2" height="2" x="0" y="2" value="15" total="22" />
                 <Status title="Internal" width="2" height="2" x="2" y="2" value="7" total="7" />
-                <Status title="Jenkins" width="2" height="2" x="4" y="2" value="41" total="41" />
+                <Status source={this.state.tasks['jenkins-sde']} title="Jenkins" width="2" height="2" x="4" y="2" />
             </div>
         );
     }
