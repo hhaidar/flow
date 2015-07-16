@@ -32,9 +32,21 @@ Services.prototype.save = function(id, data) {
 
 Services.prototype.loadService = function(file, cb) {
 
-    var context = yaml.safeLoad(fs.readFileSync(file, 'utf8')),
-        Service = this.availableServices[context.service],
-        service = new Service(context);
+    var context = yaml.safeLoad(fs.readFileSync(file, 'utf8'));
+
+    if (!context.service || !context.id) {
+        cb('Error loading: ' + file);
+        return;
+    }
+
+    var Service = this.availableServices[context.service];
+
+    if (typeof Service !== 'function') {
+        cb('Could not find service: ' + context.service.magenta);
+        return;
+    }
+
+    var service = new Service(context);
 
     typeof cb === 'function' && cb(null, service, context);
 
@@ -55,7 +67,8 @@ Services.prototype.loadServices = function(cb) {
             that.loadService(file, function(err, service, context) {
 
                 if (err) {
-                    throw err;
+                    console.error(err);
+                    return;
                 }
 
                 that.agenda.define(context.id, function(task, done) {
