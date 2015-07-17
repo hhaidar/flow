@@ -36,6 +36,7 @@
     "react": "^0.13.3",
     "react-hotkey": "^0.3.0",
     "react-skycons": "^0.1.0",
+    "request": "^2.58.0",
     "require-tree": "^1.0.1",
     "socket.io-client": "^1.3.5"
   }
