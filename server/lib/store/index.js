@@ -16,8 +16,8 @@ function Store(options) {
 
     this.tasks = [];
 
-    this.cache = new CachemanMongo('mongodb://127.0.0.1:27017/flow-cache', {
-        collection: 'cache'
+    this.cache = new CachemanMongo(options.database, {
+        collection: this.options.collections.cache
     });
 
 }

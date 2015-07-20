@@ -3,7 +3,14 @@
 var _ = require('lodash'),
     fs = require('fs'),
     yaml = require('js-yaml'),
-    path = require('path');
+    path = require('path'),
+    program = require('commander');
+
+program.version('1.0')
+       .option('-p, --port <port>', 'port to run server on', parseInt)
+       .option('-h, --host <hostname>', 'name of host to run server on')
+       .option('-d, --database <database_uri>', 'uri of database to use')
+       .parse(process.argv);
 
 var pipeline = [
 
@@ -23,8 +30,19 @@ var pipeline = [
 
     function mergeDefaultAndFileSettings(context) {
         context.result = _.merge(context.defaults, context.file);
-    }
+    },
 
+    function getCommandLineArgs(context) {
+        if (program.port) {
+            context.result.port = program.port;
+        }
+        if (program.host) {
+            context.result.host = program.host;
+        }
+        if (program.database) {
+            context.result.database = program.database;
+        }
+    },
 ];
 
 var context = {};
